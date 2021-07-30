@@ -3,7 +3,6 @@ title: "Intro to R and tidyverse"
 author: "Nikita Vasilyev"
 date: "July 30, 2021"
 output:
-  # html_document
   ioslides_presentation:
     widescreen: yes
 ---
@@ -21,7 +20,7 @@ pre {
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 
+## {.smaller}
 
 ### **What is R?**
 
@@ -43,6 +42,8 @@ Core Team
 Garrett Grolemund
 
 [Advanced R](https://adv-r.hadley.nz) by Hadley Wickham
+
+[These slides: github.com/nktvslv/intro_r_tidyverse](https://github.com/nktvslv/intro_r_tidyverse)
 
 ## How R works
 
