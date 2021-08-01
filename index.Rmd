@@ -45,6 +45,8 @@ Garrett Grolemund
 
 [These slides: github.com/nktvslv/intro_r_tidyverse](https://github.com/nktvslv/intro_r_tidyverse)
 
+[Cheatsheets](https://github.com/nktvslv/intro_r_tidyverse/tree/main/cheatsheets)
+
 ## How R works
 
 R is interpreted language
