@@ -43,9 +43,9 @@ Garrett Grolemund
 
 [Advanced R](https://adv-r.hadley.nz) by Hadley Wickham
 
-[These slides: github.com/nktvslv/intro_r_tidyverse](https://github.com/nktvslv/intro_r_tidyverse)
+[These slides: nudlerlab.github.io/intro_r_tidyverse](https://nudlerlab.github.io/intro_r_tidyverse)
 
-[Cheatsheets](https://github.com/nktvslv/intro_r_tidyverse/tree/main/cheatsheets)
+[Cheatsheets](https://github.com/nudlerlab/intro_r_tidyverse/tree/main/cheatsheets)
 
 ## How R works
 
@@ -65,7 +65,7 @@ development environment (IDE) providing various extras that simplify
 development and use of R programs\
 
 ::: {.centered}
-![rstudio_screenshot](./rstudio.png){width="80%"}
+![](./rstudio.png){width="80%"}
 :::
 
 ## R data types
@@ -330,12 +330,18 @@ proteins0 <- proteins %>%
   select(`Protein IDs`, grep("LFQ", names(.)))
 ```
 
-## Impute missing values
+## Impute missing values using kNN method
+
+`impute` package is available from Bioconductor
+```{r, eval=FALSE}
+BiocManager::install("impute")
+```
+
+
 ```{r}
 proteins1 <- bind_cols(
   proteins0[-grep("LFQ", names(proteins0))],
-  as_tibble(impute::impute.knn(as.matrix(proteins0[grep("LFQ", names(proteins0))]))[["data"]])
-)
+  as_tibble(impute::impute.knn(as.matrix(proteins0[grep("LFQ", names(proteins0))]), k = 5)[["data"]]))
 ```
 
 ## Pivot table
@@ -369,13 +375,13 @@ fdr <- anova %>%
          qval = qvalue::qvalue(pval)[["qvalues"]]) %>%
   arrange(fdr)
 
-head(fdr, 5)
+head(fdr, 10)
 ```
 
 ## Plotting
 ```{r, fig.align='center', fig.height=3, fig.width=6}
 proteins2 %>%
-  filter(str_detect(`Protein IDs`, "(MFD|UVRD|UVRA)\\_ECOLI")) %>%
+  filter(str_detect(`Protein IDs`, "(MFD|UVRA|UVRD)\\_ECOLI")) %>%
   mutate(protein = str_match(`Protein IDs`, ".*\\|(.*?)\\_ECOLI")[,2]) %>%
   ggplot() +
   geom_boxplot(mapping = aes(x = spike, y = value)) +
